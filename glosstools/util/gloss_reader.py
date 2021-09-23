@@ -4,7 +4,7 @@ from typing import List
 
 class GlossReader:
     """
-    The GlossReader object reads the glossing txt file.
+    The GlossReader object is a context manager that reads the glossing txt file.
     """
     def __init__(self, file_name: str, file_encoding: str) -> None:
         self.__file_name = file_name
