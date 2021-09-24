@@ -1,1 +1,1 @@
-from .util import GlossReader
+from .gloss_reader import GlossReader
