@@ -1,12 +1,11 @@
 import re
-from .base import GlossTool
 from .util import GlossReader
 from dataclasses import dataclass
 from typing import Generator, List, TextIO
 
 
 @dataclass
-class GlossAdder(GlossTool):
+class GlossAdder:
     """
     The GlossAdder object adds another interlinear gloss (i.e. gloss preamble) in a txt file.
     """
