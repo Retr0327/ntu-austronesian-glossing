@@ -1,12 +1,11 @@
-import re
-from .base import GlossTool
+import re 
 from .util import GlossReader
 from typing import List, TextIO
 from dataclasses import dataclass
 
 
 @dataclass
-class GlossReplacer(GlossTool):
+class GlossReplacer:
     """
     The GlossReplacer object replaces a specified phrase with another specified phrase in a txt file.
     """
