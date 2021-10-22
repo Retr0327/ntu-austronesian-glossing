@@ -7,8 +7,10 @@ class GlossSaver:
     """
     The GlossSaver object saves the data to a txt file on the desktop.
     """
+
     file_name: str
     data: str
+    folder_name: str
 
     def __post_init__(self):
         self.desktop = Path.home() / "Desktop"
@@ -19,7 +21,7 @@ class GlossSaver:
         Returns:
             a folder path
         """
-        dir_name = "gloss_replaced" 
+        dir_name = self.folder_name
         new_dir = Path(self.desktop, dir_name)
         new_dir.mkdir(parents=True, exist_ok=True)
         return new_dir
@@ -34,11 +36,11 @@ class GlossSaver:
             f.writelines(self.data)
 
     def save(self):
-        """The save method saves the data to the desktop.
-        """
-        save_folder = self.desktop / 'gloss_replaced'
+        """The save method saves the data to the desktop."""
+        save_folder = self.desktop / self.folder_name
         is_exist = save_folder.exists()
-        if not is_exist:
+
+        if is_exist is False:
             new_dir = self.create_folder()
             self.write_txt(new_dir)
 
