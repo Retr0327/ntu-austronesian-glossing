@@ -1,7 +1,7 @@
-import re 
-from .util import GlossReader
+import re  
 from typing import List, TextIO
 from dataclasses import dataclass
+from .util import GlossReader, GlossSaver
 
 
 @dataclass
@@ -13,8 +13,9 @@ class GlossReplacer:
     file_name: str
     file_encoding: str = "utf-8-sig"
 
-    def download_content(self) -> List[str]:
-        """The download_content method downloads the content from the txt file.
+    @property
+    def content(self) -> List[str]:
+        """The content property set the txt data based on the `file_name` and `file_encoding`.
 
         Returns:
             a list
@@ -32,8 +33,7 @@ class GlossReplacer:
         Returns:
             a str
         """
-        content = self.download_content()
-        result = (re.sub(old, new, value) for value in content)
+        result = (re.sub(old, new, value) for value in self.content)
         return "\n".join(result)
 
     def replace_item(self, __old: str, __new: str) -> TextIO:
@@ -47,16 +47,7 @@ class GlossReplacer:
             a txt file
         """
         data = self.search_item(__old, __new)
-        return self.write_txt(data)
+        return GlossSaver(
+            file_name=self.file_name, data=data, folder_name="gloss_replaced"
+        ).save()
 
-    def write_txt(self, data) -> TextIO:
-        """The write_txt method writes data to a txt file.
-
-        Args:
-            data (list): the output
-
-        Returns:
-            a txt file
-        """
-        with open(self.file_name, "w", encoding="utf-8") as f:
-            f.writelines(data)
