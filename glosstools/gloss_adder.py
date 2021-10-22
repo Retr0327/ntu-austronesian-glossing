@@ -1,6 +1,6 @@
 import re
-from .util import GlossReader
 from dataclasses import dataclass
+from .util import GlossReader, GlossSaver
 from typing import Generator, List, TextIO
 
 
@@ -14,8 +14,9 @@ class GlossAdder:
     file_encoding: str = "utf-8-sig"
     clitic_sep: bool = True
 
-    def download_content(self) -> List[str]:
-        """The download_content method downloads the content from the txt file.
+    @property
+    def content(self) -> List[str]:
+        """The content property set the txt data based on the `file_name` and `file_encoding`.
 
         Returns:
             a list
@@ -83,20 +84,9 @@ class GlossAdder:
 
         Returns:
             a txt file
-        """
-        content = self.download_content()
-        gla_index = list(self.get_gla_index(content))
-        data = self.search_item(gla_index, content)
-        return self.write_txt(data)
-
-    def write_txt(self, data) -> TextIO:
-        """The write_txt method writes data to a txt file.
-
-        Args:
-            data (list): the output
-
-        Returns:
-            a txt file
-        """
-        with open(self.file_name, "w", encoding="utf-8") as f:
-            f.writelines(data)
+        """ 
+        gla_index = list(self.get_gla_index(self.content))
+        data = self.search_item(gla_index, self.content)
+        return GlossSaver(
+            file_name=self.file_name, data=data, folder_name="gloss_added"
+        ).save()
