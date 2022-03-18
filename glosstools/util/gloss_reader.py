@@ -41,7 +41,7 @@ class GlossReader:
         """
         count = 1
         for index, value in enumerate(content):
-            if re.findall("\d\.\s*$", value):
+            if re.match("^(\d+\.|\d+)\s*$", value):
                 content[index] = f"{count}."
                 count += 1
         return content
