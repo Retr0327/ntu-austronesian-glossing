@@ -1,2 +1,4 @@
-from .gloss_adder import GlossAdder
-from .gloss_replacer import GlossReplacer
+from .add import GlossFirstLineAdder
+from .sub import GlossSubstituter
+
+__all__ = ["GlossFirstLineAdder", "GlossSubstituter"]
