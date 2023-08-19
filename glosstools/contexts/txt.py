@@ -1,27 +1,13 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import (
-    TYPE_CHECKING,
-    Iterable,
-)
 
 from .base import (
     GlossReader,
     GlossWriter,
 )
 
-if TYPE_CHECKING:
-    from pathlib import Path
-
-    from glosstools.typings import FileDescriptorOrPath
-
 
 @dataclass
 class TxtGlossReader(GlossReader):
-    file_path: FileDescriptorOrPath
-    encoding: str = "utf-8"
-
     def __enter__(self):
         self.__file = open(self.file_path, encoding=self.encoding)
         self.__content = self.__file.readlines()
@@ -37,10 +23,6 @@ class TxtGlossReader(GlossReader):
 
 @dataclass
 class TxtGlossWriter(GlossWriter):
-    file_path: Path
-    data: Iterable[str]
-    encoding: str = "utf-8"
-
     def __enter__(self):
         has_path = self.file_path.exists()
         if not has_path:

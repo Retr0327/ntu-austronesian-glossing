@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import (
-    TYPE_CHECKING,
-    Iterable,
-)
+from typing import TYPE_CHECKING
 
 import docx
 
@@ -14,18 +11,11 @@ from .base import (
 )
 
 if TYPE_CHECKING:
-    from pathlib import Path
-
     from docx.document import Document
-
-    from glosstools.typings import FileDescriptorOrPath
 
 
 @dataclass
 class DocxGlossReader(GlossReader):
-    file_path: FileDescriptorOrPath
-    encoding: str = "utf-8"
-
     def __enter__(self):
         self.__file: Document = docx.Document(self.file_path)
         self.__content = list(
@@ -43,10 +33,6 @@ class DocxGlossReader(GlossReader):
 
 @dataclass
 class DocxGlossWriter(GlossWriter):
-    file_path: Path
-    data: Iterable[str]
-    encoding: str = "utf-8"
-
     def __enter__(self):
         has_path = self.file_path.exists()
         if not has_path:
