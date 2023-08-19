@@ -1,22 +1,15 @@
-from __future__ import annotations
-
 from abc import (
     ABC,
     abstractmethod,
 )
 from dataclasses import dataclass
-from typing import (
-    TYPE_CHECKING,
-    Iterable,
-)
-
-if TYPE_CHECKING:
-    from pathlib import Path
+from pathlib import Path
+from typing import Iterable
 
 
 @dataclass
 class GlossWriter(ABC):
-    file_path: Path
+    file_path: str | Path
     data: Iterable[str]
     encoding: str = "utf-8"
 
@@ -27,6 +20,11 @@ class GlossWriter(ABC):
     @abstractmethod
     def __exit__(self, *args, **kwargs):
         pass
+
+    def get_file_path(self) -> Path:
+        if isinstance(self.file_path, str):
+            return Path(self.file_path)
+        return self.file_path
 
     def _mkdir(self, file_path: Path):
         folder = file_path.parent
