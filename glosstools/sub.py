@@ -42,7 +42,7 @@ class GlossSubstituter:
                     if line_number is None or line_count == line_number:
                         line = re.sub(old, new, line)  # noqa: PLW2901
                     line_count += 1
-                    if line_count > 2:
+                    if line_count > 3:
                         line_count = -1
 
             result.append(line)
