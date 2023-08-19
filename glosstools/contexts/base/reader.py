@@ -1,11 +1,22 @@
+from __future__ import annotations
+
 from abc import (
     ABC,
     abstractmethod,
 )
+from dataclasses import dataclass
 import re
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from glosstools.typings import FileDescriptorOrPath
 
 
+@dataclass
 class GlossReader(ABC):
+    file_path: FileDescriptorOrPath
+    encoding: str = "utf-8"
+
     @abstractmethod
     def __enter__(self):
         pass
