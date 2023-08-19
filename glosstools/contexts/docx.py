@@ -34,9 +34,10 @@ class DocxGlossReader(GlossReader):
 @dataclass
 class DocxGlossWriter(GlossWriter):
     def __enter__(self):
-        has_path = self.file_path.exists()
+        self.__file_path = self.get_file_path()
+        has_path = self.__file_path.exists()
         if not has_path:
-            self._mkdir(self.file_path)
+            self._mkdir(self.__file_path)
 
         self.__doc: Document = docx.Document()
         for line in self.data:
@@ -47,4 +48,4 @@ class DocxGlossWriter(GlossWriter):
         return None
 
     def write(self):
-        return self.__doc.save(self.file_path)
+        return self.__doc.save(self.__file_path)

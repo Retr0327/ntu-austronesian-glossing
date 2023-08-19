@@ -24,11 +24,12 @@ class TxtGlossReader(GlossReader):
 @dataclass
 class TxtGlossWriter(GlossWriter):
     def __enter__(self):
-        has_path = self.file_path.exists()
+        file_path = self.get_file_path()
+        has_path = file_path.exists()
         if not has_path:
-            self._mkdir(self.file_path)
+            self._mkdir(file_path)
 
-        self.__file = open(self.file_path, mode="w", encoding=self.encoding)
+        self.__file = open(file_path, mode="w", encoding=self.encoding)
         return self
 
     def __exit__(self, *args, **kwargs):
