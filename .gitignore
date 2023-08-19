@@ -133,3 +133,8 @@ dmypy.json
 
 # tempCodeRunnerFile
 tempCodeRunnerFile.py
+
+# files
+*.txt
+*.doc
+*.docx
