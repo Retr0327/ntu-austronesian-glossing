@@ -1,4 +1,10 @@
-from .read import GlossReader
-from .write import GlossWriter
+from .docx import (
+    DocxGlossReader,
+    DocxGlossWriter,
+)
+from .txt import (
+    TxtGlossReader,
+    TxtGlossWriter,
+)
 
-__all__ = ["GlossReader", "GlossWriter"]
+__all__ = ["DocxGlossReader", "DocxGlossWriter", "TxtGlossReader", "TxtGlossWriter"]
